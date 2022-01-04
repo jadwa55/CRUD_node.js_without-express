@@ -26,7 +26,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/',(req, res) => {
-    res.send('CRUD Operation using NodeJS / ExpressJS / MySQL');
+    // res.send('CRUD Operation using NodeJS / ExpressJS / MySQL');
+    app.get('/',(req, res) => {
+        // res.send('CRUD Operation using NodeJS / ExpressJS / MySQL');
+        let sql = "SELECT * FROM deparetement";
+        let query = connection.query(sql, (err, rows) => {
+            if(err) throw err;
+            res.render('departement', {
+                title : 'CRUD Operation using NodeJS / ExpressJS / MySQL',
+                users : rows
+            });
+        });
+    }); 
+    // res.render('departement');
 }); 
 
 
