@@ -31,7 +31,7 @@ app.get('/',(req, res) => {
     let query = connection.query(sql, (err, rows) => {
         if(err) throw err;
         res.render('departement', {
-            title : 'CRUD Operation using NodeJS / ExpressJS / MySQL',
+            title : 'CRUD using NodeJS / ExpressJS / MySQL',
             departement: rows
         });
     });
@@ -39,7 +39,7 @@ app.get('/',(req, res) => {
 
 app.get('/add',(req, res) => {
     res.render('depar_add', {
-        title : 'CRUD Operation using NodeJS / ExpressJS / MySQL'
+        title : 'CRUD using NodeJS / ExpressJS / MySQL'
     });
 });
  
@@ -47,6 +47,27 @@ app.post('/save',(req, res) => {
     let data = {name: req.body.name, description: req.body.description,};
     let sql = "INSERT INTO departement SET ?";
     let query = connection.query(sql, data,(err, results) => {
+      if(err) throw err;
+      res.redirect('/');
+    });
+});
+
+app.get('/edit/:deparId',(req, res) => {
+    const deparId = req.params.deparId;
+    let sql = `Select * from departement where id = ${deparId}`;
+    let query = connection.query(sql,(err, result) => {
+        if(err) throw err;
+        res.render('depar_edit', {
+            title : 'CRUD using NodeJS / ExpressJS / MySQL',
+            depar : result[0]
+        });
+    });
+});
+
+app.post('/update',(req, res) => {
+    const userId = req.body.id;
+    let sql = "update departement SET name='"+req.body.name+"',  description='"+req.body.description+"' where id ="+userId;
+    let query = connection.query(sql,(err, results) => {
       if(err) throw err;
       res.redirect('/');
     });
