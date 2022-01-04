@@ -27,22 +27,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/',(req, res) => {
     // res.send('CRUD Operation using NodeJS / ExpressJS / MySQL');
-    app.get('/',(req, res) => {
-        // res.send('CRUD Operation using NodeJS / ExpressJS / MySQL');
-        let sql = "SELECT * FROM deparetement";
-        let query = connection.query(sql, (err, rows) => {
-            if(err) throw err;
-            res.render('departement', {
-                title : 'CRUD Operation using NodeJS / ExpressJS / MySQL',
-                users : rows
-            });
+    let sql = "SELECT * FROM departement";
+    let query = connection.query(sql, (err, rows) => {
+        if(err) throw err;
+        res.render('departement', {
+            // Salah : 'saida',
+            title : 'CRUD Operation using NodeJS / ExpressJS / MySQL',
+            departement: rows
         });
-    }); 
-    // res.render('departement');
+    });
 }); 
 
 
 // Server Listening
-app.listen(3000, () => {
-    console.log('Server is running at port 3000');
+app.listen(5000, () => {
+    console.log('Server is running at port 5000');
 });
