@@ -31,12 +31,26 @@ app.get('/',(req, res) => {
     let query = connection.query(sql, (err, rows) => {
         if(err) throw err;
         res.render('departement', {
-            // Salah : 'saida',
             title : 'CRUD Operation using NodeJS / ExpressJS / MySQL',
             departement: rows
         });
     });
 }); 
+
+app.get('/add',(req, res) => {
+    res.render('depar_add', {
+        title : 'CRUD Operation using NodeJS / ExpressJS / MySQL'
+    });
+});
+ 
+app.post('/save',(req, res) => { 
+    let data = {name: req.body.name, description: req.body.description,};
+    let sql = "INSERT INTO departement SET ?";
+    let query = connection.query(sql, data,(err, results) => {
+      if(err) throw err;
+      res.redirect('/');
+    });
+});
 
 
 // Server Listening
