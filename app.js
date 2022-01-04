@@ -73,6 +73,15 @@ app.post('/update',(req, res) => {
     });
 });
 
+app.get('/delete/:deparId',(req, res) => {
+    const deparId = req.params.deparId;
+    let sql = `DELETE from departement where id = ${deparId}`;
+    let query = connection.query(sql,(err, result) => {
+        if(err) throw err;
+        res.redirect('/');
+    });
+});
+
 
 // Server Listening
 app.listen(5000, () => {
